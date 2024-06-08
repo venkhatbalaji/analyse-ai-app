@@ -20,6 +20,12 @@ export class AppService {
 
   async checkFundType(): Promise<Response<object> | ErrorResponse<object>> {
     try {
+      await this.producerService.emit(
+        'my-topic',
+        JSON.stringify({
+          email: 'test',
+        }),
+      );
       return createSuccessResponse({ test: true });
     } catch (error) {
       return createFailureResponse({ test: false });

@@ -17,20 +17,21 @@ import { ConfigModule } from '../config/config.module';
           transport: Transport.KAFKA,
           options: {
             client: {
-              clientId: 'ui-service-id',
+              clientId: 'ui-service',
               brokers:
                 configService.get('KAFKA_SERVER').split(',').length === 0
-                  ? [configService.get('KAFKA_SERVER').split(',')]
+                  ? [configService.get('KAFKA_SERVER')]
                   : configService.get('KAFKA_SERVER').split(','),
             },
             producer: {
               createPartitioner: Partitioners.LegacyPartitioner,
+              allowAutoTopicCreation: true,
             },
-            producerOnlyMode: true,
-            consumer: {
-              groupId: 'ai-analyser-group',
-            },
+            producerOnlyMode: true
           },
+          consumer: {
+            groupId: 'ai-consumer-group-id'
+          }
         }),
         inject: [ConfigService],
       },
