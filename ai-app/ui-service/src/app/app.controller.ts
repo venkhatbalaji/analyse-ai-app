@@ -19,13 +19,9 @@ export class AppController {
   @ApiTags('')
   @ApiOperation({ summary: '' })
   @ApiResponse({ status: 401, description: '' })
-  @Get('fund-name')
-  async checkFund(
-    @Query('name') name: string,
-    @Query('id') id: string,
-    @Res() res: ExpressResponse,
-  ) {
-    const response = await this.appService.checkFundType();
+  @Post('messages')
+  async postMessages(@Body() body: object, @Res() res: ExpressResponse) {
+    const response = await this.appService.postMessages();
     return res
       .status(
         response.success === false ? HttpStatus.BAD_REQUEST : HttpStatus.OK,

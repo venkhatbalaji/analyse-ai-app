@@ -18,10 +18,10 @@ export class AppService {
     private readonly producerService: ClientKafka,
   ) {}
 
-  async checkFundType(): Promise<Response<object> | ErrorResponse<object>> {
+  async postMessages(): Promise<Response<object> | ErrorResponse<object>> {
     try {
       await this.producerService.emit(
-        'my-topic',
+        'post-user-message',
         JSON.stringify({
           email: 'test',
         }),

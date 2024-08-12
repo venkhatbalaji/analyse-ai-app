@@ -6,7 +6,6 @@ import { config } from 'dotenv';
 config();
 
 async function bootstrap() {
-  console.log('process.env.KAFKA_SERVER', process.env.KAFKA_SERVER);
   const servers = process.env.KAFKA_SERVER.toString();
   const brokers = servers.includes(',') ? servers.split(',') : [servers];
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(

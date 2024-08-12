@@ -5,7 +5,7 @@ import { ClientKafka, EventPattern, Payload } from '@nestjs/microservices';
 @Controller()
 export class KafkaController {
   constructor() {}
-  @EventPattern('my-topic')
+  @EventPattern('post-user-message')
   async handleMyTopic(@Payload() message) {
     console.log('Received message', message);
   }
