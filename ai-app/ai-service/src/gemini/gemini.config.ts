@@ -6,10 +6,7 @@ import {
 } from '@google/generative-ai';
 
 export const GENERATION_CONFIG: GenerationConfig = {
-  maxOutputTokens: 1024,
-  temperature: 1,
-  topK: 32,
-  topP: 1,
+  responseMimeType: 'application/json',
 };
 
 export const SAFETY_SETTINGS: SafetySetting[] = [

@@ -17,14 +17,3 @@ export function createSuccessResponse<T>(data: T): Response<T> {
     data,
   };
 }
-
-export function createFailureResponse<T>(
-  data: T,
-  errorCode: ErrorMessage = ErrorMessage.BAD_REQUEST,
-): ErrorResponse<T> {
-  return {
-    success: false,
-    errorCode: errorCode,
-    data,
-  };
-}

@@ -6,6 +6,9 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { Partitioners } from 'kafkajs';
 import { ConfigService } from '@nestjs/config';
 import { ConfigModule } from '../config/config.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from '../schema/user.schema';
+import { MonthlyExpense, MonthlyExpenseSchema } from '../schema/monthly-expense.schema';
 
 @Module({
   imports: [
@@ -27,16 +30,21 @@ import { ConfigModule } from '../config/config.module';
               createPartitioner: Partitioners.LegacyPartitioner,
               allowAutoTopicCreation: true,
             },
-            producerOnlyMode: true
+            producerOnlyMode: true,
           },
           consumer: {
-            groupId: 'ai-consumer-group-id'
-          }
+            groupId: 'ai-consumer-group-id',
+          },
         }),
         inject: [ConfigService],
       },
     ]),
     ConfigModule,
+    MongooseModule.forRoot('mongodb://localhost/ai-app'),
+    MongooseModule.forFeature([
+      { name: User.name, schema: UserSchema },
+      { name: MonthlyExpense.name, schema: MonthlyExpenseSchema },
+    ]),
   ],
   providers: [AppService],
   controllers: [AppController, HealthCheckController],
